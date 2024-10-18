@@ -1,3 +1,13 @@
 {
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "files.associations": {
+        "*.csm": "json",
+        "*.csml": "json",
+        "esp_log.h": "c",
+        "task.h": "c",
+        "nvs_flash.h": "c",
+        "esp_wifi.h": "c",
+        "freertos.h": "c",
+        "ps2keyboard.h": "c"
+    }
 }

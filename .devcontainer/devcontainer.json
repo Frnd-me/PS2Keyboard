@@ -1,23 +1,21 @@
 {
-   "name":"ESP-IDF",
-   "build":{
-      "dockerfile":"Dockerfile"
-   },
-   "settings":{
-      "idf.showOnboardingOnInit":false,
-      "idf.toolsPath":"/opt/esp",
-      "idf.espIdfPath":"/opt/esp/idf",
-      "idf.pythonBinPath":"/opt/esp/python_env/idf4.2_py3.6_env/bin/python",
-      "idf.port":"/dev/ttyUSB0",
-      "terminal.integrated.shell.linux":"/bin/bash"
-   },
-   "extensions":[
-      "ms-vscode.cpptools",
-      "ms-vscode.cmake-tools",
-      "xaver.clang-format"
-   ],
-   "userEnvProbe":"loginInteractiveShell",
-   "runArgs":[
-      "--device=/dev/ttyUSB1"
-   ]
+  "name": "ESP-IDF",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "settings": {
+    "idf.showOnboardingOnInit": false,
+    "idf.toolsPath": "/opt/esp",
+    "idf.espIdfPath": "/opt/esp/idf",
+    "idf.pythonBinPath": "/opt/esp/python_env/idf4.2_py3.6_env/bin/python",
+    "idf.port": "/dev/ttyUSB0",
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [
+    "ms-vscode.cpptools",
+    "ms-vscode.cmake-tools",
+    "xaver.clang-format"
+  ],
+  "userEnvProbe": "loginInteractiveShell",
+  "runArgs": ["--device=/dev/ttyUSB1"]
 }
