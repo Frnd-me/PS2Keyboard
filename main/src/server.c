@@ -1,7 +1,9 @@
 #include "server.h"
 
-#include "ps2keyboard.h"
+// PS2Keyboard
+#include "main.h"
 
+// ESP
 #include <esp_log.h>
 
 #include <lwip/err.h>
@@ -15,13 +17,13 @@
 #define TCP_SERVER_KEEPALIVE_COUNT 3
 
 static void
-do_retransmit(const int sock)
+do_retransmit(const int sock, byte_handler_fn handler)
 {
   char rx_buffer[128];
   int len = 0;
 
   do {
-    len = recv(sock, rx_buffer, sizeof(rx_buffer) - 1, 0);
+    len = recv(sock, rx_buffer, sizeof(rx_buffer), 0);
 
     // Error occurred
     if (len < 0) {
@@ -33,26 +35,18 @@ do_retransmit(const int sock)
     }
     // Data received
     else {
-      rx_buffer[len] = 0;
-
-      ESP_LOGI(TAG, "Received %d bytes: %s", len, rx_buffer);
-
-      int to_write = len;
-      while (to_write > 0) {
-        int written = send(sock, rx_buffer + (len - to_write), to_write, 0);
-        if (written < 0) {
-          ESP_LOGE(TAG, "Error occurred during sending: errno %d", errno);
-          return;
-        }
-        to_write -= written;
+      for (int i = 0; i < len; ++i) {
+        handler(rx_buffer[i]);
       }
     }
   } while (len > 0);
 }
 
 void
-tcp_server_run(void* pvParameters)
+tcp_server_run(void* parameters)
 {
+  byte_handler_fn handler = (byte_handler_fn)parameters;
+
   struct sockaddr_in dest_addr;
   dest_addr.sin_addr.s_addr = htonl(INADDR_ANY);
   dest_addr.sin_family = AF_INET;
@@ -118,7 +112,7 @@ tcp_server_run(void* pvParameters)
       ESP_LOGI(TAG, "Socket accepted ip address: %s", addr_str);
     }
 
-    do_retransmit(sock);
+    do_retransmit(sock, handler);
 
     // Close socket
     shutdown(sock, 0);

@@ -8,6 +8,7 @@
         "nvs_flash.h": "c",
         "esp_wifi.h": "c",
         "freertos.h": "c",
-        "ps2keyboard.h": "c"
+        "ps2keyboard.h": "c",
+        "main.h": "c"
     }
 }

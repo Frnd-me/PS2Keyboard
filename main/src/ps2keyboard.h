@@ -1,6 +1,10 @@
-#ifndef PS2KEYBOARD_H
-#define PS2KEYBOARD_H
+#ifndef KEY_HANDLER_H
+#define KEY_HANDLER_H
 
-static const char* TAG = "ps2keyboard";
+// Stdlib
+#include <stdint.h>
 
-#endif // PS2KEYBOARD_H
+void
+handle_key(uint8_t scancode);
+
+#endif // KEY_HANDLER_H
